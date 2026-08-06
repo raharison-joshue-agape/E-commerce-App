@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/theme.dart';
 import '../../cart/providers/cart_providers.dart';
+import '../../favorites/widgets/favorite_button.dart';
 import '../models/product.dart';
 
 class ActionButtons extends ConsumerWidget {
@@ -24,12 +25,7 @@ class ActionButtons extends ConsumerWidget {
       children: [
         Row(
           children: [
-            IconButton.filledTonal(
-              onPressed: () =>
-                  _showMessage(context, 'Ajouté aux favoris (bientôt disponible).'),
-              tooltip: 'Ajouter aux favoris',
-              icon: const Icon(Icons.favorite_outline),
-            ),
+            FavoriteButton(productId: product.id, tonal: true),
             const SizedBox(width: 12),
             Expanded(
               child: FilledButton.icon(

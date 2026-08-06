@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/utils/currency.dart';
+import '../../favorites/widgets/favorite_button.dart';
 import '../models/product.dart';
 
 class ProductCard extends StatelessWidget {
@@ -65,6 +66,21 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                     ),
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.45),
+                        shape: BoxShape.circle,
+                      ),
+                      child: FavoriteButton(
+                        productId: product.id,
+                        iconSize: 20,
+                        unselectedColor: Colors.white,
+                      ),
+                    ),
+                  ),
                   Positioned(
                     bottom: 8,
                     left: 8,

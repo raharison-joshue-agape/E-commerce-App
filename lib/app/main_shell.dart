@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/cart/providers/cart_providers.dart';
+import '../features/favorites/widgets/favorite_badge.dart';
 
 class MainShell extends ConsumerWidget {
   const MainShell({super.key, required this.navigationShell});
@@ -38,9 +39,9 @@ class MainShell extends ConsumerWidget {
             selectedIcon: Icon(Icons.grid_view),
             label: 'Produits',
           ),
-          const NavigationDestination(
-            icon: Icon(Icons.favorite_outline),
-            selectedIcon: Icon(Icons.favorite),
+          NavigationDestination(
+            icon: const FavoriteBadge(selected: false),
+            selectedIcon: const FavoriteBadge(selected: true),
             label: 'Favoris',
           ),
           NavigationDestination(
