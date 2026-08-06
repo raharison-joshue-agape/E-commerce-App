@@ -5,6 +5,7 @@ import '../core/constants/app_routes.dart';
 import '../core/widgets/not_found_page.dart';
 import '../features/cart/pages/cart_page.dart';
 import '../features/favorites/pages/favorites_page.dart';
+import '../features/products/models/product.dart';
 import '../features/products/pages/home_page.dart';
 import '../features/products/pages/product_detail_page.dart';
 import '../features/products/pages/product_list_page.dart';
@@ -72,6 +73,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: 'product-detail',
         builder: (context, state) => ProductDetailPage(
           productId: state.pathParameters['id'] ?? '',
+          initialProduct: state.extra as Product?,
         ),
       ),
     ],

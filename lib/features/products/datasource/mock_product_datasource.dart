@@ -1,3 +1,4 @@
+import '../../../core/errors/product_not_found_exception.dart';
 import '../models/product.dart';
 import 'product_datasource.dart';
 
@@ -6,6 +7,15 @@ class MockProductDatasource implements ProductDatasource {
   Future<List<Product>> getProducts() async {
     await Future.delayed(const Duration(milliseconds: 600));
     return _products;
+  }
+
+  @override
+  Future<Product> getProductById(String id) async {
+    await Future.delayed(const Duration(milliseconds: 600));
+    return _products.firstWhere(
+      (product) => product.id == id,
+      orElse: () => throw ProductNotFoundException(id),
+    );
   }
 }
 

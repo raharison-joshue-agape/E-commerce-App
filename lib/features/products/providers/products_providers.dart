@@ -7,6 +7,7 @@ import '../repository/product_repository.dart';
 import '../repository/product_repository_impl.dart';
 
 const int _popularCount = 6;
+const int _relatedCount = 6;
 
 final productDatasourceProvider = Provider<ProductDatasource>((ref) {
   return MockProductDatasource();
@@ -26,7 +27,27 @@ final popularProductsProvider = FutureProvider<List<Product>>((ref) async {
   return sorted.take(_popularCount).toList();
 });
 
-final productByIdProvider = FutureProvider.family<Product, String>((ref, id) async {
-  final products = await ref.watch(productsProvider.future);
-  return products.firstWhere((product) => product.id == id);
-});
+final productDetailProvider = FutureProvider.family<Product, String>(
+  (ref, id) {
+    return ref.watch(productRepositoryProvider).getProductById(id);
+  },
+  retry: (retryCount, error) => null,
+);
+
+final relatedProductsProvider = FutureProvider.family<List<Product>, String>(
+  (ref, productId) async {
+    final products = await ref.watch(productsProvider.future);
+    final current = products.firstWhere((product) => product.id == productId);
+    final related = products.where((product) => product.id != productId).toList()
+      ..sort((a, b) {
+        final sameCategoryA = a.category == current.category ? 0 : 1;
+        final sameCategoryB = b.category == current.category ? 0 : 1;
+        if (sameCategoryA != sameCategoryB) {
+          return sameCategoryA.compareTo(sameCategoryB);
+        }
+        return b.rating.compareTo(a.rating);
+      });
+    return related.take(_relatedCount).toList();
+  },
+  retry: (retryCount, error) => null,
+);

@@ -155,7 +155,10 @@ class _PopularProductsList extends ConsumerWidget {
               width: 170,
               child: ProductCard(
                 product: product,
-                onTap: () => context.push(AppRoutes.productDetailFor(product.id)),
+                onTap: () => context.push(
+                  AppRoutes.productDetailFor(product.id),
+                  extra: product,
+                ),
               ),
             );
           },

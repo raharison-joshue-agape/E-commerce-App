@@ -46,6 +46,7 @@ class ProductListPage extends ConsumerWidget {
               product: product,
               onTap: () => context.push(
                 AppRoutes.productDetailFor(product.id),
+                extra: product,
               ),
             );
           },

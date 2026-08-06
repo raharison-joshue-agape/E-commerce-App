@@ -27,15 +27,18 @@ class ProductCard extends StatelessWidget {
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.network(
-                    product.imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => ColoredBox(
-                      color: colors.surfaceContainerHighest,
-                      child: const Icon(
-                        Icons.image_outlined,
-                        size: 40,
-                        color: Colors.grey,
+                  Hero(
+                    tag: 'product-image-${product.id}',
+                    child: Image.network(
+                      product.imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => ColoredBox(
+                        color: colors.surfaceContainerHighest,
+                        child: const Icon(
+                          Icons.image_outlined,
+                          size: 40,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                   ),
