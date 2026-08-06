@@ -9,7 +9,14 @@ import '../features/products/models/product.dart';
 import '../features/products/pages/home_page.dart';
 import '../features/products/pages/product_detail_page.dart';
 import '../features/products/pages/product_list_page.dart';
+import '../features/profile/pages/about_page.dart';
+import '../features/profile/pages/addresses_page.dart';
+import '../features/profile/pages/help_page.dart';
+import '../features/profile/pages/notifications_page.dart';
+import '../features/profile/pages/orders_page.dart';
+import '../features/profile/pages/payment_methods_page.dart';
 import '../features/profile/pages/profile_page.dart';
+import '../features/profile/pages/settings_page.dart';
 import 'main_shell.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -75,6 +82,41 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           productId: state.pathParameters['id'] ?? '',
           initialProduct: state.extra as Product?,
         ),
+      ),
+      GoRoute(
+        path: AppRoutes.orders,
+        name: 'orders',
+        builder: (context, state) => const OrdersPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.addresses,
+        name: 'addresses',
+        builder: (context, state) => const AddressesPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.paymentMethods,
+        name: 'payment-methods',
+        builder: (context, state) => const PaymentMethodsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.notifications,
+        name: 'notifications',
+        builder: (context, state) => const NotificationsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.settings,
+        name: 'settings',
+        builder: (context, state) => const SettingsPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.help,
+        name: 'help',
+        builder: (context, state) => const HelpPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.about,
+        name: 'about',
+        builder: (context, state) => const AboutPage(),
       ),
     ],
     errorBuilder: (context, state) => const NotFoundPage(),
