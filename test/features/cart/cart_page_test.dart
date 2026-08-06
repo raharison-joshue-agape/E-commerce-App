@@ -25,7 +25,11 @@ void main() {
     return container;
   }
 
-  void addToCart(ProviderContainer container, Product product, {int times = 1}) {
+  void addToCart(
+    ProviderContainer container,
+    Product product, {
+    int times = 1,
+  }) {
     final notifier = container.read(cartProvider.notifier);
     for (var i = 0; i < times; i++) {
       notifier.addProduct(product);
@@ -62,9 +66,8 @@ void main() {
         ),
         GoRoute(
           path: AppRoutes.products,
-          builder: (context, state) => const Scaffold(
-            body: Center(child: Text('CATALOGUE')),
-          ),
+          builder: (context, state) =>
+              const Scaffold(body: Center(child: Text('CATALOGUE'))),
         ),
       ],
     );
@@ -128,33 +131,34 @@ void main() {
     expect(container.read(cartProvider.notifier).getQuantity(iphone.id), 2);
   });
 
-  testWidgets('decreasing the quantity updates totals and never goes below one', (
-    tester,
-  ) async {
-    final container = createContainer();
-    addToCart(container, iphone, times: 2);
+  testWidgets(
+    'decreasing the quantity updates totals and never goes below one',
+    (tester) async {
+      final container = createContainer();
+      addToCart(container, iphone, times: 2);
 
-    await tester.pumpWidget(
-      UncontrolledProviderScope(
-        container: container,
-        child: const MaterialApp(home: CartPage()),
-      ),
-    );
+      await tester.pumpWidget(
+        UncontrolledProviderScope(
+          container: container,
+          child: const MaterialApp(home: CartPage()),
+        ),
+      );
 
-    await tester.tap(find.byTooltip('Diminuer la quantité'));
-    await tester.pumpAndSettle();
+      await tester.tap(find.byTooltip('Diminuer la quantité'));
+      await tester.pumpAndSettle();
 
-    expect(container.read(cartProvider.notifier).getQuantity(iphone.id), 1);
-    expect(find.text('1 299,00 €'), findsNWidgets(5));
+      expect(container.read(cartProvider.notifier).getQuantity(iphone.id), 1);
+      expect(find.text('1 299,00 €'), findsNWidgets(5));
 
-    final minusButton = tester.widget<IconButton>(
-      find.ancestor(
-        of: find.byIcon(Icons.remove),
-        matching: find.byType(IconButton),
-      ),
-    );
-    expect(minusButton.onPressed, isNull);
-  });
+      final minusButton = tester.widget<IconButton>(
+        find.ancestor(
+          of: find.byIcon(Icons.remove),
+          matching: find.byType(IconButton),
+        ),
+      );
+      expect(minusButton.onPressed, isNull);
+    },
+  );
 
   testWidgets('deleting a product removes it from the cart', (tester) async {
     final container = createContainer();
@@ -190,7 +194,10 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Vider le panier'), findsOneWidget);
-    expect(find.text('Voulez-vous vraiment retirer tous les articles ?'), findsOneWidget);
+    expect(
+      find.text('Voulez-vous vraiment retirer tous les articles ?'),
+      findsOneWidget,
+    );
     expect(find.text('Annuler'), findsOneWidget);
     expect(find.text('Oui'), findsOneWidget);
 
@@ -262,25 +269,22 @@ void main() {
 }
 
 class _Product extends Product {
-  const _Product({
-    required super.id,
-    required super.name,
-    required super.price,
-  }) : super(
-         description: '',
-         shortDescription: '',
-         imageUrl: '',
-         category: 'Smartphones',
-         brand: 'Apple',
-         oldPrice: null,
-         discount: null,
-         rating: 4.8,
-         reviewCount: 352,
-         stock: 25,
-         isAvailable: true,
-         colors: const [],
-         sizes: const [],
-         images: const [],
-         specifications: const {},
-       );
+  const _Product({required super.id, required super.name, required super.price})
+    : super(
+        description: '',
+        shortDescription: '',
+        imageUrl: '',
+        category: 'Smartphones',
+        brand: 'Apple',
+        oldPrice: null,
+        discount: null,
+        rating: 4.8,
+        reviewCount: 352,
+        stock: 25,
+        isAvailable: true,
+        colors: const [],
+        sizes: const [],
+        images: const [],
+        specifications: const {},
+      );
 }

@@ -30,7 +30,9 @@ void main() {
   });
 
   test('ProfileRepositoryImpl delegates to the datasource', () async {
-    final repository = ProfileRepositoryImpl(const MockProfileLocalDataSource());
+    final repository = ProfileRepositoryImpl(
+      const MockProfileLocalDataSource(),
+    );
 
     final user = await repository.getProfile();
 

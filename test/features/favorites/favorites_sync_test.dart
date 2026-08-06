@@ -32,13 +32,19 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Produit ajouté aux favoris'), findsOneWidget);
-    expect(container.read(favoritesProvider).isFavorite('iphone-15-pro'), isTrue);
+    expect(
+      container.read(favoritesProvider).isFavorite('iphone-15-pro'),
+      isTrue,
+    );
 
     await tester.tap(find.byTooltip('Retirer des favoris'));
     await tester.pumpAndSettle();
 
     expect(find.text('Produit retiré des favoris'), findsOneWidget);
-    expect(container.read(favoritesProvider).isFavorite('iphone-15-pro'), isFalse);
+    expect(
+      container.read(favoritesProvider).isFavorite('iphone-15-pro'),
+      isFalse,
+    );
   });
 
   testWidgets('product cards stay in sync with the favorites state', (

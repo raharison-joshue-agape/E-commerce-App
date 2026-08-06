@@ -26,7 +26,9 @@ class ReviewCard extends StatelessWidget {
                   radius: 18,
                   backgroundColor: colors.primaryContainer,
                   child: Text(
-                    review.author.isEmpty ? '?' : review.author[0].toUpperCase(),
+                    review.author.isEmpty
+                        ? '?'
+                        : review.author[0].toUpperCase(),
                     style: theme.textTheme.titleSmall?.copyWith(
                       color: colors.onPrimaryContainer,
                       fontWeight: FontWeight.w700,

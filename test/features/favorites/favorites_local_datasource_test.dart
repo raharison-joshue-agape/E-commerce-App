@@ -39,10 +39,10 @@ void main() {
 
     final datasource = SharedPreferencesFavoritesLocalDataSource();
 
-    expect(
-      await datasource.readFavoriteIds(),
-      ['iphone-15-pro', 'airpods-pro-2'],
-    );
+    expect(await datasource.readFavoriteIds(), [
+      'iphone-15-pro',
+      'airpods-pro-2',
+    ]);
   });
 
   test('writes empty list to clear favorites', () async {

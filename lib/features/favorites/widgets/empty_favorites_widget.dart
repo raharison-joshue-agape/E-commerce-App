@@ -12,7 +12,8 @@ class EmptyFavoritesWidget extends StatelessWidget {
     return EmptyStateWidget(
       icon: Icons.favorite_border,
       title: 'Aucun favori',
-      message: 'Ajoutez des produits à vos favoris pour les retrouver facilement.',
+      message:
+          'Ajoutez des produits à vos favoris pour les retrouver facilement.',
       actionLabel: 'Découvrir les produits',
       actionIcon: Icons.explore_outlined,
       onAction: onExplore,

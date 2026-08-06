@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RatingStars extends StatelessWidget {
-  const RatingStars({
-    super.key,
-    required this.rating,
-    this.size = 16,
-  });
+  const RatingStars({super.key, required this.rating, this.size = 16});
 
   final double rating;
   final double size;

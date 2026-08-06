@@ -6,17 +6,21 @@ import '../models/product_review.dart';
 import '../repository/product_review_repository.dart';
 import '../repository/product_review_repository_impl.dart';
 
-final productReviewDatasourceProvider = Provider<ProductReviewDatasource>((ref) {
+final productReviewDatasourceProvider = Provider<ProductReviewDatasource>((
+  ref,
+) {
   return MockProductReviewDatasource();
 });
 
-final productReviewRepositoryProvider = Provider<ProductReviewRepository>((ref) {
-  return ProductReviewRepositoryImpl(ref.watch(productReviewDatasourceProvider));
+final productReviewRepositoryProvider = Provider<ProductReviewRepository>((
+  ref,
+) {
+  return ProductReviewRepositoryImpl(
+    ref.watch(productReviewDatasourceProvider),
+  );
 });
 
-final productReviewsProvider = FutureProvider.family<List<ProductReview>, String>(
-  (ref, productId) {
-    return ref.watch(productReviewRepositoryProvider).getReviews(productId);
-  },
-  retry: (retryCount, error) => null,
-);
+final productReviewsProvider =
+    FutureProvider.family<List<ProductReview>, String>((ref, productId) {
+      return ref.watch(productReviewRepositoryProvider).getReviews(productId);
+    }, retry: (retryCount, error) => null);

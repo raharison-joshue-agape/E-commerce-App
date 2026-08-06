@@ -67,7 +67,11 @@ void main() {
 
     final state = container.read(favoritesProvider);
     expect(state.favoriteCount, 3);
-    expect(state.favorites, {'iphone-15-pro', 'airpods-pro-2', 'macbook-air-m3'});
+    expect(state.favorites, {
+      'iphone-15-pro',
+      'airpods-pro-2',
+      'macbook-air-m3',
+    });
   });
 
   test('removeFavorite removes a product', () async {
@@ -103,10 +107,16 @@ void main() {
     await notifier.initialize();
 
     await notifier.toggleFavorite('iphone-15-pro');
-    expect(container.read(favoritesProvider).isFavorite('iphone-15-pro'), isTrue);
+    expect(
+      container.read(favoritesProvider).isFavorite('iphone-15-pro'),
+      isTrue,
+    );
 
     await notifier.toggleFavorite('iphone-15-pro');
-    expect(container.read(favoritesProvider).isFavorite('iphone-15-pro'), isFalse);
+    expect(
+      container.read(favoritesProvider).isFavorite('iphone-15-pro'),
+      isFalse,
+    );
   });
 
   test('clearFavorites removes every favorite', () async {

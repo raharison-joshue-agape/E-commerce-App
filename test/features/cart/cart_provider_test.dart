@@ -160,33 +160,27 @@ void main() {
     final container = ProviderContainer();
     addTearDown(container.dispose);
 
-    expect(
-      container.read(cartProvider.notifier).getQuantity('unknown-id'),
-      0,
-    );
+    expect(container.read(cartProvider.notifier).getQuantity('unknown-id'), 0);
   });
 }
 
 class _Product extends Product {
-  const _Product({
-    required super.id,
-    required super.name,
-    required super.price,
-  }) : super(
-         description: '',
-         shortDescription: '',
-         imageUrl: '',
-         category: 'Test',
-         brand: 'Test',
-         oldPrice: null,
-         discount: null,
-         rating: 4.5,
-         reviewCount: 1,
-         stock: 10,
-         isAvailable: true,
-         colors: const [],
-         sizes: const [],
-         images: const [],
-         specifications: const {},
-       );
+  const _Product({required super.id, required super.name, required super.price})
+    : super(
+        description: '',
+        shortDescription: '',
+        imageUrl: '',
+        category: 'Test',
+        brand: 'Test',
+        oldPrice: null,
+        discount: null,
+        rating: 4.5,
+        reviewCount: 1,
+        stock: 10,
+        isAvailable: true,
+        colors: const [],
+        sizes: const [],
+        images: const [],
+        specifications: const {},
+      );
 }

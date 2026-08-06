@@ -111,10 +111,7 @@ class FavoritesNotifier extends Notifier<FavoritesState> {
   Future<void> clearFavorites() async {
     await _ensureInitialized();
     final previous = state.favoriteIds;
-    state = state.copyWith(
-      favoriteIds: const <String>{},
-      clearError: true,
-    );
+    state = state.copyWith(favoriteIds: const <String>{}, clearError: true);
     try {
       await ref.read(favoritesRepositoryProvider).clearFavorites();
     } catch (error) {

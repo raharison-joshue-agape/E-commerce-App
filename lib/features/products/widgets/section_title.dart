@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SectionTitle extends StatelessWidget {
-  const SectionTitle({
-    super.key,
-    required this.title,
-    this.onSeeAllTap,
-  });
+  const SectionTitle({super.key, required this.title, this.onSeeAllTap});
 
   final String title;
   final VoidCallback? onSeeAllTap;
@@ -27,10 +23,7 @@ class SectionTitle extends StatelessWidget {
           ),
         ),
         if (onSeeAllTap != null)
-          TextButton(
-            onPressed: onSeeAllTap,
-            child: const Text('Voir tout'),
-          ),
+          TextButton(onPressed: onSeeAllTap, child: const Text('Voir tout')),
       ],
     );
   }

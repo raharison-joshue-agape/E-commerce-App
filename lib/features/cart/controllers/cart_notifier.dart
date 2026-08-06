@@ -39,9 +39,7 @@ class CartNotifier extends Notifier<CartState> {
 
   void removeProduct(String productId) {
     state = state.copyWith(
-      items: state.items
-          .where((item) => item.productId != productId)
-          .toList(),
+      items: state.items.where((item) => item.productId != productId).toList(),
     );
   }
 

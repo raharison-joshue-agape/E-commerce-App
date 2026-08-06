@@ -11,16 +11,15 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('HomePage shows the main sections', (tester) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
-          home: HomePage(),
-        ),
-      ),
+      const ProviderScope(child: MaterialApp(home: HomePage())),
     );
 
     expect(find.text('NovaShop'), findsOneWidget);
     expect(find.byType(HomeBanner), findsOneWidget);
-    expect(find.text('Découvrez les meilleures offres du moment'), findsOneWidget);
+    expect(
+      find.text('Découvrez les meilleures offres du moment'),
+      findsOneWidget,
+    );
     expect(find.text('Découvrir'), findsOneWidget);
     expect(find.byType(SectionTitle), findsWidgets);
     expect(find.text('Catégories'), findsOneWidget);

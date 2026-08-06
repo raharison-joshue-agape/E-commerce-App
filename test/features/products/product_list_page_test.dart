@@ -8,11 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   Future<void> pumpListPage(WidgetTester tester) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
-          home: ProductListPage(),
-        ),
-      ),
+      const ProviderScope(child: MaterialApp(home: ProductListPage())),
     );
     await tester.pump(const Duration(seconds: 1));
   }
@@ -21,11 +17,7 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
-          home: ProductListPage(),
-        ),
-      ),
+      const ProviderScope(child: MaterialApp(home: ProductListPage())),
     );
 
     expect(find.byType(ProductCardSkeleton), findsWidgets);
@@ -71,27 +63,28 @@ void main() {
     expect(find.text('iPhone 15 Pro'), findsOneWidget);
   });
 
-  testWidgets('an empty result shows the empty search state and reset restores the list', (
-    tester,
-  ) async {
-    await pumpListPage(tester);
+  testWidgets(
+    'an empty result shows the empty search state and reset restores the list',
+    (tester) async {
+      await pumpListPage(tester);
 
-    await tester.enterText(find.byType(TextField), 'zzzzz');
-    await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextField), 'zzzzz');
+      await tester.pumpAndSettle();
 
-    expect(find.byType(EmptySearchWidget), findsOneWidget);
-    expect(find.text('Aucun produit trouvé'), findsOneWidget);
-    expect(
-      find.text('Essayez de modifier vos critères de recherche.'),
-      findsOneWidget,
-    );
+      expect(find.byType(EmptySearchWidget), findsOneWidget);
+      expect(find.text('Aucun produit trouvé'), findsOneWidget);
+      expect(
+        find.text('Essayez de modifier vos critères de recherche.'),
+        findsOneWidget,
+      );
 
-    await tester.tap(find.text('Réinitialiser les filtres'));
-    await tester.pumpAndSettle();
+      await tester.tap(find.text('Réinitialiser les filtres'));
+      await tester.pumpAndSettle();
 
-    expect(find.byType(EmptySearchWidget), findsNothing);
-    expect(find.text('iPhone 15 Pro'), findsOneWidget);
-  });
+      expect(find.byType(EmptySearchWidget), findsNothing);
+      expect(find.text('iPhone 15 Pro'), findsOneWidget);
+    },
+  );
 
   testWidgets('the grid is responsive and stays usable on narrow screens', (
     tester,

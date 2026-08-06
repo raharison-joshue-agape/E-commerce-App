@@ -91,12 +91,16 @@ void main() {
     });
     final container = ProviderContainer();
     addTearDown(container.dispose);
-    container.read(cartProvider.notifier).addProduct(
-      const _TestProduct(id: 'p1', name: 'Produit 1', price: 1299),
-    );
-    container.read(cartProvider.notifier).addProduct(
-      const _TestProduct(id: 'p2', name: 'Produit 2', price: 199),
-    );
+    container
+        .read(cartProvider.notifier)
+        .addProduct(
+          const _TestProduct(id: 'p1', name: 'Produit 1', price: 1299),
+        );
+    container
+        .read(cartProvider.notifier)
+        .addProduct(
+          const _TestProduct(id: 'p2', name: 'Produit 2', price: 199),
+        );
 
     await tester.pumpWidget(
       UncontrolledProviderScope(
@@ -118,9 +122,7 @@ void main() {
   ) async {
     final datasource = _FlakyProfileLocalDataSource();
     final container = ProviderContainer(
-      overrides: [
-        profileLocalDataSourceProvider.overrideWithValue(datasource),
-      ],
+      overrides: [profileLocalDataSourceProvider.overrideWithValue(datasource)],
       retry: (retryCount, error) => null,
     );
     addTearDown(container.dispose);

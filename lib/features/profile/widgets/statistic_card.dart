@@ -19,7 +19,9 @@ class StatisticCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
 
-    final background = highlighted ? colors.primary : colors.surfaceContainerLow;
+    final background = highlighted
+        ? colors.primary
+        : colors.surfaceContainerLow;
     final foreground = highlighted ? colors.onPrimary : colors.primary;
 
     return Container(

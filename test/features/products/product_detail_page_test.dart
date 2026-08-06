@@ -13,9 +13,7 @@ void main() {
 
     await tester.pumpWidget(
       const ProviderScope(
-        child: MaterialApp(
-          home: ProductDetailPage(productId: 'iphone-15-pro'),
-        ),
+        child: MaterialApp(home: ProductDetailPage(productId: 'iphone-15-pro')),
       ),
     );
 
@@ -47,9 +45,7 @@ void main() {
   ) async {
     await tester.pumpWidget(
       const ProviderScope(
-        child: MaterialApp(
-          home: ProductDetailPage(productId: 'unknown-id'),
-        ),
+        child: MaterialApp(home: ProductDetailPage(productId: 'unknown-id')),
       ),
     );
 

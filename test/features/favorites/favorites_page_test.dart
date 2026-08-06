@@ -17,7 +17,10 @@ void main() {
     SharedPreferences.setMockInitialValues({});
   });
 
-  Future<void> pumpPage(WidgetTester tester, ProviderContainer container) async {
+  Future<void> pumpPage(
+    WidgetTester tester,
+    ProviderContainer container,
+  ) async {
     await tester.pumpWidget(
       UncontrolledProviderScope(
         container: container,
@@ -40,7 +43,9 @@ void main() {
     expect(find.byType(EmptyFavoritesWidget), findsOneWidget);
     expect(find.text('Aucun favori'), findsOneWidget);
     expect(
-      find.text('Ajoutez des produits à vos favoris pour les retrouver facilement.'),
+      find.text(
+        'Ajoutez des produits à vos favoris pour les retrouver facilement.',
+      ),
       findsOneWidget,
     );
     expect(find.text('Découvrir les produits'), findsOneWidget);
@@ -62,9 +67,8 @@ void main() {
         ),
         GoRoute(
           path: AppRoutes.products,
-          builder: (context, state) => const Scaffold(
-            body: Center(child: Text('CATALOGUE')),
-          ),
+          builder: (context, state) =>
+              const Scaffold(body: Center(child: Text('CATALOGUE'))),
         ),
       ],
     );
@@ -144,9 +148,8 @@ void main() {
         ),
         GoRoute(
           path: AppRoutes.productDetail,
-          builder: (context, state) => ProductDetailPage(
-            productId: state.pathParameters['id'] ?? '',
-          ),
+          builder: (context, state) =>
+              ProductDetailPage(productId: state.pathParameters['id'] ?? ''),
         ),
       ],
     );

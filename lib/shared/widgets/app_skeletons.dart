@@ -90,7 +90,11 @@ class CartSkeleton extends StatelessWidget {
                         SizedBox(height: 12),
                         Row(
                           children: [
-                            SkeletonBox(width: 90, height: 28, borderRadius: 12),
+                            SkeletonBox(
+                              width: 90,
+                              height: 28,
+                              borderRadius: 12,
+                            ),
                             Spacer(),
                             SkeletonBox(width: 70, height: 14),
                           ],
@@ -140,7 +144,9 @@ class ProfileSkeleton extends StatelessWidget {
                     children: [
                       SkeletonBox(width: 40, height: 40, borderRadius: 20),
                       SizedBox(width: 12),
-                      Expanded(child: SkeletonBox(width: double.infinity, height: 14)),
+                      Expanded(
+                        child: SkeletonBox(width: double.infinity, height: 14),
+                      ),
                     ],
                   ),
                   if (i < 2) const SizedBox(height: 12),
@@ -162,7 +168,9 @@ class ProfileSkeleton extends StatelessWidget {
                     children: [
                       SkeletonBox(width: 40, height: 40, borderRadius: 20),
                       SizedBox(width: 12),
-                      Expanded(child: SkeletonBox(width: double.infinity, height: 14)),
+                      Expanded(
+                        child: SkeletonBox(width: double.infinity, height: 14),
+                      ),
                       SizedBox(width: 12),
                       SkeletonBox(width: 16, height: 16),
                     ],

@@ -6,14 +6,14 @@ import '../providers/product_filters_providers.dart';
 
 extension on ProductSortOption {
   IconData get icon => switch (this) {
-        ProductSortOption.relevance => Icons.auto_awesome,
-        ProductSortOption.priceAscending => Icons.arrow_upward,
-        ProductSortOption.priceDescending => Icons.arrow_downward,
-        ProductSortOption.nameAscending => Icons.sort_by_alpha,
-        ProductSortOption.nameDescending => Icons.arrow_back,
-        ProductSortOption.bestRated => Icons.star,
-        ProductSortOption.bestDiscount => Icons.local_offer,
-      };
+    ProductSortOption.relevance => Icons.auto_awesome,
+    ProductSortOption.priceAscending => Icons.arrow_upward,
+    ProductSortOption.priceDescending => Icons.arrow_downward,
+    ProductSortOption.nameAscending => Icons.sort_by_alpha,
+    ProductSortOption.nameDescending => Icons.arrow_back,
+    ProductSortOption.bestRated => Icons.star,
+    ProductSortOption.bestDiscount => Icons.local_offer,
+  };
 }
 
 class SortMenu extends ConsumerWidget {
@@ -39,7 +39,9 @@ class SortMenu extends ConsumerWidget {
                 Icon(
                   option.icon,
                   size: 20,
-                  color: option == sort ? colors.primary : colors.onSurfaceVariant,
+                  color: option == sort
+                      ? colors.primary
+                      : colors.onSurfaceVariant,
                 ),
                 const SizedBox(width: 12),
                 Text(option.label),

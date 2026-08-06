@@ -115,7 +115,9 @@ final priceRangeProvider = Provider<RangeValues>((ref) {
 });
 
 final availabilityProvider = Provider<bool>((ref) {
-  return ref.watch(productFiltersProvider.select((state) => state.onlyAvailable));
+  return ref.watch(
+    productFiltersProvider.select((state) => state.onlyAvailable),
+  );
 });
 
 final sortProvider = Provider<ProductSortOption>((ref) {

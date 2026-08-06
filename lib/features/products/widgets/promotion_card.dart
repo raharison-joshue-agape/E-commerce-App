@@ -22,10 +22,7 @@ class PromotionCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            const Color(0xFFFF8A3D),
-            theme.colorScheme.tertiary,
-          ],
+          colors: [const Color(0xFFFF8A3D), theme.colorScheme.tertiary],
         ),
         boxShadow: const [
           BoxShadow(

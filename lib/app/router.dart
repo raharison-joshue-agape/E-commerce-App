@@ -69,8 +69,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: AppRoutes.products,
                 name: 'products',
-                pageBuilder: (context, state) =>
-                    _buildPage(const ProductListPage(), key: AppRoutes.products),
+                pageBuilder: (context, state) => _buildPage(
+                  const ProductListPage(),
+                  key: AppRoutes.products,
+                ),
               ),
             ],
           ),
@@ -132,8 +134,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.paymentMethods,
         name: 'payment-methods',
-        pageBuilder: (context, state) =>
-            _buildPage(const PaymentMethodsPage(), key: AppRoutes.paymentMethods),
+        pageBuilder: (context, state) => _buildPage(
+          const PaymentMethodsPage(),
+          key: AppRoutes.paymentMethods,
+        ),
       ),
       GoRoute(
         path: AppRoutes.notifications,

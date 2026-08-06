@@ -50,8 +50,9 @@ class ProductListPage extends ConsumerWidget {
                 child: items.isEmpty
                     ? EmptySearchWidget(
                         key: const ValueKey('empty-search'),
-                        onReset: () =>
-                            ref.read(productFiltersProvider.notifier).resetFilters(),
+                        onReset: () => ref
+                            .read(productFiltersProvider.notifier)
+                            .resetFilters(),
                       )
                     : _ProductGrid(key: ValueKey(items), products: items),
               ),

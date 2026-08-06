@@ -18,16 +18,9 @@ class PlaceholderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.w700),
-        ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
       ),
-      body: EmptyStateWidget(
-        icon: icon,
-        title: title,
-        message: message,
-      ),
+      body: EmptyStateWidget(icon: icon, title: title, message: message),
     );
   }
 }

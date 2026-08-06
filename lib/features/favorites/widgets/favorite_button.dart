@@ -59,9 +59,7 @@ class FavoriteButton extends ConsumerWidget {
         (_, true) => 'Produit ajouté aux favoris',
         _ => 'Produit retiré des favoris',
       },
-      type: state.error != null
-          ? AppSnackbarType.error
-          : AppSnackbarType.info,
+      type: state.error != null ? AppSnackbarType.error : AppSnackbarType.info,
     );
   }
 }
@@ -90,7 +88,9 @@ class _AnimatedFavoriteIcon extends StatelessWidget {
         isFavorite ? Icons.favorite : Icons.favorite_border,
         key: ValueKey(isFavorite),
         size: iconSize,
-        color: isFavorite ? Theme.of(context).colorScheme.error : unselectedColor,
+        color: isFavorite
+            ? Theme.of(context).colorScheme.error
+            : unselectedColor,
       ),
     );
   }

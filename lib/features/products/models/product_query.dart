@@ -30,7 +30,10 @@ class ProductQuery {
       final matchesPrice =
           product.price >= minPrice && product.price <= maxPrice;
       final matchesAvailability = !onlyAvailable || product.isAvailable;
-      return matchesSearch && matchesCategory && matchesPrice && matchesAvailability;
+      return matchesSearch &&
+          matchesCategory &&
+          matchesPrice &&
+          matchesAvailability;
     }).toList();
 
     _sort(matches);

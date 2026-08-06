@@ -10,9 +10,7 @@ class NotFoundPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Page introuvable'),
-      ),
+      appBar: AppBar(title: const Text('Page introuvable')),
       body: ErrorStateWidget(
         icon: Icons.error_outline,
         title: '404 — Page introuvable',

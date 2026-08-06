@@ -20,9 +20,9 @@ class ReviewList extends ConsumerWidget {
       children: [
         Text(
           'Avis clients',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 12),
         _ReviewSummary(rating: product.rating, count: product.reviewCount),

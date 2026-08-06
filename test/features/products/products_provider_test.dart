@@ -9,7 +9,10 @@ void main() {
     final container = ProviderContainer();
     addTearDown(container.dispose);
 
-    expect(container.read(productsProvider), isA<AsyncLoading<List<dynamic>>>());
+    expect(
+      container.read(productsProvider),
+      isA<AsyncLoading<List<dynamic>>>(),
+    );
   });
 
   test('productsProvider emits the product list after loading', () async {
@@ -27,8 +30,9 @@ void main() {
     final container = ProviderContainer();
     addTearDown(container.dispose);
 
-    final product = await container
-        .read(productDetailProvider('iphone-15-pro').future);
+    final product = await container.read(
+      productDetailProvider('iphone-15-pro').future,
+    );
 
     expect(product.name, 'iPhone 15 Pro');
     expect(product.specifications, isNotEmpty);
@@ -44,27 +48,29 @@ void main() {
     );
   });
 
-  test('relatedProductsProvider prefers products of the same category', () async {
-    final container = ProviderContainer();
-    addTearDown(container.dispose);
+  test(
+    'relatedProductsProvider prefers products of the same category',
+    () async {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
 
-    final related = await container
-        .read(relatedProductsProvider('iphone-15-pro').future);
+      final related = await container.read(
+        relatedProductsProvider('iphone-15-pro').future,
+      );
 
-    expect(related, isNotEmpty);
-    expect(related.first.category, 'Smartphones');
-    expect(
-      related.any((product) => product.id == 'iphone-15-pro'),
-      isFalse,
-    );
-  });
+      expect(related, isNotEmpty);
+      expect(related.first.category, 'Smartphones');
+      expect(related.any((product) => product.id == 'iphone-15-pro'), isFalse);
+    },
+  );
 
   test('productReviewsProvider returns reviews for a product', () async {
     final container = ProviderContainer();
     addTearDown(container.dispose);
 
-    final reviews = await container
-        .read(productReviewsProvider('iphone-15-pro').future);
+    final reviews = await container.read(
+      productReviewsProvider('iphone-15-pro').future,
+    );
 
     expect(reviews, isNotEmpty);
     expect(reviews.every((review) => review.comment.isNotEmpty), isTrue);

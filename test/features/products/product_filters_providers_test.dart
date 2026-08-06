@@ -45,9 +45,7 @@ void main() {
 
     test('searches by name, case-insensitive', () async {
       final container = createContainer();
-      container
-          .read(productFiltersProvider.notifier)
-          .setSearchQuery('IPHONE');
+      container.read(productFiltersProvider.notifier).setSearchQuery('IPHONE');
 
       final ids = await filteredIds(container);
 

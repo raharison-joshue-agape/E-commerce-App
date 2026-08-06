@@ -27,7 +27,10 @@ class HomePage extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(Icons.storefront, color: Theme.of(context).colorScheme.tertiary),
+            Icon(
+              Icons.storefront,
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
             const SizedBox(width: 8),
             const Text(
               'NovaShop',
@@ -174,10 +177,7 @@ class _PopularProductsPlaceholder extends StatelessWidget {
         itemCount: 3,
         separatorBuilder: (context, index) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
-          return const SizedBox(
-            width: 170,
-            child: ProductCardSkeleton(),
-          );
+          return const SizedBox(width: 170, child: ProductCardSkeleton());
         },
       ),
     );

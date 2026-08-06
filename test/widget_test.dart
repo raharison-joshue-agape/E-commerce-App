@@ -4,12 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('renders the home page with the bottom navigation', (tester) async {
-    await tester.pumpWidget(
-      const ProviderScope(
-        child: ECommerceApp(),
-      ),
-    );
+  testWidgets('renders the home page with the bottom navigation', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const ProviderScope(child: ECommerceApp()));
 
     expect(find.text('NovaShop'), findsOneWidget);
     expect(find.byType(NavigationBar), findsOneWidget);

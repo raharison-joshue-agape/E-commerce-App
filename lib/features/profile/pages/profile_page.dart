@@ -70,10 +70,7 @@ class _ProfileContent extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ProfileHeader(
-                user: user,
-                onEdit: onEditPressed,
-              ),
+              child: ProfileHeader(user: user, onEdit: onEditPressed),
             ),
             ProfileSection(
               title: 'Statistiques',
@@ -120,9 +117,7 @@ class _ProfileContent extends StatelessWidget {
             ),
             ProfileSection(
               title: 'Menu',
-              children: [
-                _ProfileMenuCard(onLogoutPressed: onLogoutPressed),
-              ],
+              children: [_ProfileMenuCard(onLogoutPressed: onLogoutPressed)],
             ),
           ],
         ),
@@ -229,4 +224,3 @@ class _ProfileMenuCard extends StatelessWidget {
     );
   }
 }
-

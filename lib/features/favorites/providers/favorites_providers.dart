@@ -6,8 +6,9 @@ import '../datasource/shared_preferences_favorites_local_datasource.dart';
 import '../repository/favorites_repository.dart';
 import '../repository/favorites_repository_impl.dart';
 
-final favoritesLocalDataSourceProvider =
-    Provider<FavoritesLocalDataSource>((ref) {
+final favoritesLocalDataSourceProvider = Provider<FavoritesLocalDataSource>((
+  ref,
+) {
   return SharedPreferencesFavoritesLocalDataSource();
 });
 

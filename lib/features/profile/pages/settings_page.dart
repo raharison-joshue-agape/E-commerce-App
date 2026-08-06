@@ -10,8 +10,7 @@ class SettingsPage extends StatelessWidget {
     return const PlaceholderPage(
       title: 'Paramètres',
       icon: Icons.settings_outlined,
-      message:
-          'Personnalisez bientôt votre expérience dans l\'application.',
+      message: 'Personnalisez bientôt votre expérience dans l\'application.',
     );
   }
 }

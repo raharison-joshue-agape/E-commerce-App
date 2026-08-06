@@ -23,9 +23,7 @@ void main() {
       UncontrolledProviderScope(
         container: container,
         child: MaterialApp(
-          home: Scaffold(
-            body: CartBadge(onPressed: () {}),
-          ),
+          home: Scaffold(body: CartBadge(onPressed: () {})),
         ),
       ),
     );
@@ -97,25 +95,22 @@ void main() {
 }
 
 class _Product extends Product {
-  const _Product({
-    required super.id,
-    required super.name,
-    required super.price,
-  }) : super(
-         description: '',
-         shortDescription: '',
-         imageUrl: '',
-         category: 'Smartphones',
-         brand: 'Apple',
-         oldPrice: null,
-         discount: null,
-         rating: 4.8,
-         reviewCount: 352,
-         stock: 25,
-         isAvailable: true,
-         colors: const [],
-         sizes: const [],
-         images: const [],
-         specifications: const {},
-       );
+  const _Product({required super.id, required super.name, required super.price})
+    : super(
+        description: '',
+        shortDescription: '',
+        imageUrl: '',
+        category: 'Smartphones',
+        brand: 'Apple',
+        oldPrice: null,
+        discount: null,
+        rating: 4.8,
+        reviewCount: 352,
+        stock: 25,
+        isAvailable: true,
+        colors: const [],
+        sizes: const [],
+        images: const [],
+        specifications: const {},
+      );
 }

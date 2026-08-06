@@ -17,14 +17,15 @@ abstract final class AppTheme {
   static ThemeData _build(Brightness brightness) {
     final isDark = brightness == Brightness.dark;
 
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: seed,
-      brightness: brightness,
-      surface: isDark ? _darkSurface : surface,
-    ).copyWith(
-      tertiary: isDark ? _darkAccent : accent,
-      onTertiary: isDark ? const Color(0xFF3B1D00) : Colors.white,
-    );
+    final colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: seed,
+          brightness: brightness,
+          surface: isDark ? _darkSurface : surface,
+        ).copyWith(
+          tertiary: isDark ? _darkAccent : accent,
+          onTertiary: isDark ? const Color(0xFF3B1D00) : Colors.white,
+        );
 
     final scaffoldBackground = isDark ? _darkBackground : background;
     final cardColor = isDark ? _darkCard : surface;
@@ -47,9 +48,7 @@ abstract final class AppTheme {
         elevation: 1,
         shadowColor: Colors.black26,
         surfaceTintColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: cardColor,
@@ -83,21 +82,19 @@ abstract final class AppTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
-        backgroundColor: isDark ? const Color(0xFF2A2E3A) : const Color(0xFF1F2430),
+        backgroundColor: isDark
+            ? const Color(0xFF2A2E3A)
+            : const Color(0xFF1F2430),
         contentTextStyle: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w600,
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       dialogTheme: DialogThemeData(
         backgroundColor: cardColor,
         surfaceTintColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
       dividerTheme: DividerThemeData(
         color: colorScheme.outlineVariant.withValues(alpha: 0.5),

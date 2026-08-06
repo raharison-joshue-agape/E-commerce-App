@@ -34,14 +34,15 @@ class ProductCard extends StatelessWidget {
                       child: Image.network(
                         product.imageUrl,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => ColoredBox(
-                          color: colors.surfaceContainerHighest,
-                          child: Icon(
-                            Icons.image_outlined,
-                            size: 40,
-                            color: colors.onSurfaceVariant,
-                          ),
-                        ),
+                        errorBuilder: (context, error, stackTrace) =>
+                            ColoredBox(
+                              color: colors.surfaceContainerHighest,
+                              child: Icon(
+                                Icons.image_outlined,
+                                size: 40,
+                                color: colors.onSurfaceVariant,
+                              ),
+                            ),
                       ),
                     ),
                     if (product.hasDiscount)
