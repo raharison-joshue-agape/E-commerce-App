@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme.dart';
 import '../../../core/utils/currency.dart';
 import '../models/product.dart';
 
@@ -45,7 +44,7 @@ class PriceSection extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: AppTheme.accent,
+                  color: colors.tertiary,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme.dart';
-
 class PromotionCard extends StatelessWidget {
   const PromotionCard({
     super.key,
@@ -21,10 +19,13 @@ class PromotionCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFFFF8A3D), AppTheme.accent],
+          colors: [
+            const Color(0xFFFF8A3D),
+            theme.colorScheme.tertiary,
+          ],
         ),
         boxShadow: const [
           BoxShadow(

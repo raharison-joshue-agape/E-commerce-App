@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../shared/services/app_snackbar_service.dart';
 import '../providers/favorites_providers.dart';
 
 class FavoriteButton extends ConsumerWidget {
@@ -50,20 +51,18 @@ class FavoriteButton extends ConsumerWidget {
     final isFavorite = state.isFavorite(productId);
 
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(
-            switch ((state.error, isFavorite)) {
-              (final Object? error, _) when error != null =>
-                'Impossible de mettre à jour les favoris.',
-              (_, true) => 'Produit ajouté aux favoris',
-              _ => 'Produit retiré des favoris',
-            },
-          ),
-        ),
-      );
+    AppSnackbarService.show(
+      context,
+      switch ((state.error, isFavorite)) {
+        (final Object? error, _) when error != null =>
+          'Impossible de mettre à jour les favoris.',
+        (_, true) => 'Produit ajouté aux favoris',
+        _ => 'Produit retiré des favoris',
+      },
+      type: state.error != null
+          ? AppSnackbarType.error
+          : AppSnackbarType.info,
+    );
   }
 }
 
@@ -91,9 +90,7 @@ class _AnimatedFavoriteIcon extends StatelessWidget {
         isFavorite ? Icons.favorite : Icons.favorite_border,
         key: ValueKey(isFavorite),
         size: iconSize,
-        color: isFavorite
-            ? const Color(0xFFE53935)
-            : unselectedColor,
+        color: isFavorite ? Theme.of(context).colorScheme.error : unselectedColor,
       ),
     );
   }

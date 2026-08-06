@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
+import '../../../shared/widgets/error_state_widget.dart';
 import '../models/product.dart';
 import '../providers/products_providers.dart';
 import '../widgets/action_buttons.dart';
@@ -150,54 +151,15 @@ class _ProductNotFoundView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 96,
-                height: 96,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.errorContainer,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.search_off,
-                  size: 48,
-                  color: theme.colorScheme.onErrorContainer,
-                ),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                'Produit introuvable',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Ce produit n\'existe plus ou a été retiré du catalogue.',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              FilledButton.icon(
-                onPressed: () => context.go(AppRoutes.products),
-                icon: const Icon(Icons.grid_view),
-                label: const Text('Retour au catalogue'),
-              ),
-            ],
-          ),
-        ),
+      body: ErrorStateWidget(
+        icon: Icons.search_off,
+        title: 'Produit introuvable',
+        message: 'Ce produit n\'existe plus ou a été retiré du catalogue.',
+        actionLabel: 'Retour au catalogue',
+        actionIcon: Icons.grid_view,
+        onAction: () => context.go(AppRoutes.products),
       ),
     );
   }

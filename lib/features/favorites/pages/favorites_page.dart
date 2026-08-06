@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
+import '../../../shared/widgets/app_skeletons.dart';
+import '../../../shared/widgets/error_state_widget.dart';
 import '../controllers/favorites_notifier.dart';
 import '../providers/favorites_providers.dart';
 import '../widgets/empty_favorites_widget.dart';
@@ -28,11 +30,13 @@ class FavoritesPage extends ConsumerWidget {
 
   Widget _buildBody(BuildContext context, WidgetRef ref, FavoritesState state) {
     if (state.isLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return const _FavoritesGridSkeleton();
     }
     if (state.error != null) {
-      return _FavoritesErrorView(
-        onRetry: () => ref.read(favoritesProvider.notifier).initialize(),
+      return ErrorStateWidget(
+        title: 'Impossible de charger vos favoris.',
+        message: 'Veuillez réessayer dans quelques instants.',
+        onAction: () => ref.read(favoritesProvider.notifier).initialize(),
       );
     }
     if (state.isEmpty) {
@@ -44,60 +48,30 @@ class FavoritesPage extends ConsumerWidget {
   }
 }
 
-class _FavoritesErrorView extends StatelessWidget {
-  const _FavoritesErrorView({required this.onRetry});
-
-  final VoidCallback onRetry;
+class _FavoritesGridSkeleton extends StatelessWidget {
+  const _FavoritesGridSkeleton();
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colors = theme.colorScheme;
-
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 96,
-              height: 96,
-              decoration: BoxDecoration(
-                color: colors.errorContainer,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.error_outline,
-                size: 48,
-                color: colors.onErrorContainer,
-              ),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              'Impossible de charger vos favoris.',
-              style: theme.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Veuillez réessayer dans quelques instants.',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: colors.onSurfaceVariant,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-            FilledButton.icon(
-              onPressed: onRetry,
-              icon: const Icon(Icons.refresh),
-              label: const Text('Réessayer'),
-            ),
-          ],
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final columns = switch (constraints.maxWidth) {
+          >= 900 => 3,
+          >= 600 => 2,
+          _ => 1,
+        };
+        return GridView.builder(
+          padding: const EdgeInsets.all(16),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: columns,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+            mainAxisExtent: 300,
+          ),
+          itemCount: 6,
+          itemBuilder: (context, index) => const ProductCardSkeleton(),
+        );
+      },
     );
   }
 }

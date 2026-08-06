@@ -50,11 +50,11 @@ class _ProductImageGalleryState extends State<ProductImageGallery> {
                 itemBuilder: (context, index) => Image.network(
                   images[index],
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => const Center(
+                  errorBuilder: (context, error, stackTrace) => Center(
                     child: Icon(
                       Icons.image_outlined,
                       size: 64,
-                      color: Colors.grey,
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ),

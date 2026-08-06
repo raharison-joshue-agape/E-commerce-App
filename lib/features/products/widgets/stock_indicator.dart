@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme.dart';
-
 class StockIndicator extends StatelessWidget {
   const StockIndicator({
     super.key,
@@ -20,7 +18,7 @@ class StockIndicator extends StatelessWidget {
     final Color color = !isAvailable
         ? theme.colorScheme.error
         : isLowStock
-        ? AppTheme.accent
+        ? theme.colorScheme.tertiary
         : const Color(0xFF2E7D32);
     final String label = !isAvailable
         ? 'Rupture de stock'

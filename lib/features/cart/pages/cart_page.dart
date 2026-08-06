@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
+import '../../../shared/services/app_dialog_service.dart';
+import '../../../shared/services/app_snackbar_service.dart';
 import '../providers/cart_providers.dart';
 import '../widgets/cart_item_card.dart';
 import '../widgets/cart_summary.dart';
@@ -63,24 +65,11 @@ class CartPage extends ConsumerWidget {
   }
 
   Future<void> _confirmClearCart(BuildContext context, WidgetRef ref) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Vider le panier'),
-        content: const Text(
-          'Voulez-vous vraiment retirer tous les articles ?',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Annuler'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Oui'),
-          ),
-        ],
-      ),
+    final confirmed = await AppDialogService.showConfirm(
+      context,
+      title: 'Vider le panier',
+      message: 'Voulez-vous vraiment retirer tous les articles ?',
+      confirmLabel: 'Oui',
     );
 
     if (confirmed == true) {
@@ -89,10 +78,6 @@ class CartPage extends ConsumerWidget {
   }
 
   void _showComingSoon(BuildContext context) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        const SnackBar(content: Text('Le paiement sera bientôt disponible.')),
-      );
+    AppSnackbarService.show(context, 'Le paiement sera bientôt disponible.');
   }
 }

@@ -8,6 +8,7 @@ import 'package:e_commerce_app/features/profile/pages/orders_page.dart';
 import 'package:e_commerce_app/features/profile/pages/profile_page.dart';
 import 'package:e_commerce_app/features/profile/providers/profile_providers.dart';
 import 'package:e_commerce_app/features/profile/widgets/profile_statistics.dart';
+import 'package:e_commerce_app/shared/widgets/app_skeletons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -40,12 +41,12 @@ void main() {
 
     await pumpProfile(tester);
 
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.byType(ProfileSkeleton), findsOneWidget);
 
     await tester.pump(const Duration(milliseconds: 600));
     await tester.pumpAndSettle();
 
-    expect(find.byType(CircularProgressIndicator), findsNothing);
+    expect(find.byType(ProfileSkeleton), findsNothing);
     expect(find.text('Camille Laurent'), findsNWidgets(2));
     expect(find.text('camille.laurent@example.com'), findsOneWidget);
     expect(find.text('Gold'), findsOneWidget);

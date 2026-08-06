@@ -3,11 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
+import '../../../shared/widgets/app_skeletons.dart';
+import '../../../shared/widgets/error_state_widget.dart';
 import '../models/product.dart';
 import '../providers/product_filters_providers.dart';
+import '../providers/products_providers.dart';
 import '../widgets/empty_search_widget.dart';
 import '../widgets/product_card.dart';
 import '../widgets/product_filter_bar.dart';
+
+int productGridCrossAxisCount(double width) {
+  if (width >= 1200) return 4;
+  if (width >= 900) return 3;
+  return 2;
+}
 
 class ProductListPage extends ConsumerWidget {
   const ProductListPage({super.key});
@@ -28,8 +37,12 @@ class ProductListPage extends ConsumerWidget {
           const ProductFilterBar(),
           Expanded(
             child: filtered.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stackTrace) => const _ProductListErrorView(),
+              loading: () => const _ProductGridSkeleton(),
+              error: (error, stackTrace) => ErrorStateWidget(
+                title: 'Impossible de charger les produits.',
+                message: 'Veuillez réessayer dans quelques instants.',
+                onAction: () => ref.invalidate(productsProvider),
+              ),
               data: (items) => AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 switchInCurve: Curves.easeOut,
@@ -62,7 +75,7 @@ class _ProductGrid extends StatelessWidget {
         return GridView.builder(
           padding: const EdgeInsets.all(16),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: _crossAxisCountFor(constraints.maxWidth),
+            crossAxisCount: productGridCrossAxisCount(constraints.maxWidth),
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
             mainAxisExtent: 272,
@@ -82,27 +95,27 @@ class _ProductGrid extends StatelessWidget {
       },
     );
   }
-
-  int _crossAxisCountFor(double width) {
-    if (width >= 1200) return 4;
-    if (width >= 900) return 3;
-    return 2;
-  }
 }
 
-class _ProductListErrorView extends StatelessWidget {
-  const _ProductListErrorView();
+class _ProductGridSkeleton extends StatelessWidget {
+  const _ProductGridSkeleton();
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Padding(
-        padding: EdgeInsets.all(24),
-        child: Text(
-          'Impossible de charger les produits. Veuillez réessayer.',
-          textAlign: TextAlign.center,
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return GridView.builder(
+          padding: const EdgeInsets.all(16),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: productGridCrossAxisCount(constraints.maxWidth),
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+            mainAxisExtent: 272,
+          ),
+          itemCount: 6,
+          itemBuilder: (context, index) => const ProductCardSkeleton(),
+        );
+      },
     );
   }
 }

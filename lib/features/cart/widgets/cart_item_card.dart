@@ -34,9 +34,9 @@ class CartItemCard extends ConsumerWidget {
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => ColoredBox(
                     color: colors.surfaceContainerHighest,
-                    child: const Icon(
+                    child: Icon(
                       Icons.image_outlined,
-                      color: Colors.grey,
+                      color: colors.onSurfaceVariant,
                     ),
                   ),
                 ),

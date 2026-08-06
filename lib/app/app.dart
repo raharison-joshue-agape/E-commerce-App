@@ -15,6 +15,8 @@ class ECommerceApp extends ConsumerWidget {
       title: 'E-commerce App',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
       routerConfig: router,
     );
   }

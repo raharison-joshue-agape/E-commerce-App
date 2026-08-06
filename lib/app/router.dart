@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,6 +20,31 @@ import '../features/profile/pages/profile_page.dart';
 import '../features/profile/pages/settings_page.dart';
 import 'main_shell.dart';
 
+Page<void> _buildPage(Widget child, {required String key}) {
+  return CustomTransitionPage<void>(
+    key: ValueKey(key),
+    transitionDuration: const Duration(milliseconds: 280),
+    reverseTransitionDuration: const Duration(milliseconds: 220),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final curved = CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeOutCubic,
+      );
+      return FadeTransition(
+        opacity: curved,
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 0.02),
+            end: Offset.zero,
+          ).animate(curved),
+          child: child,
+        ),
+      );
+    },
+    child: child,
+  );
+}
+
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: AppRoutes.home,
@@ -33,7 +59,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: AppRoutes.home,
                 name: 'home',
-                builder: (context, state) => const HomePage(),
+                pageBuilder: (context, state) =>
+                    _buildPage(const HomePage(), key: AppRoutes.home),
               ),
             ],
           ),
@@ -42,7 +69,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: AppRoutes.products,
                 name: 'products',
-                builder: (context, state) => const ProductListPage(),
+                pageBuilder: (context, state) =>
+                    _buildPage(const ProductListPage(), key: AppRoutes.products),
               ),
             ],
           ),
@@ -51,7 +79,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: AppRoutes.favorites,
                 name: 'favorites',
-                builder: (context, state) => const FavoritesPage(),
+                pageBuilder: (context, state) =>
+                    _buildPage(const FavoritesPage(), key: AppRoutes.favorites),
               ),
             ],
           ),
@@ -60,7 +89,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: AppRoutes.cart,
                 name: 'cart',
-                builder: (context, state) => const CartPage(),
+                pageBuilder: (context, state) =>
+                    _buildPage(const CartPage(), key: AppRoutes.cart),
               ),
             ],
           ),
@@ -69,7 +99,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: AppRoutes.profile,
                 name: 'profile',
-                builder: (context, state) => const ProfilePage(),
+                pageBuilder: (context, state) =>
+                    _buildPage(const ProfilePage(), key: AppRoutes.profile),
               ),
             ],
           ),
@@ -78,45 +109,55 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.productDetail,
         name: 'product-detail',
-        builder: (context, state) => ProductDetailPage(
-          productId: state.pathParameters['id'] ?? '',
-          initialProduct: state.extra as Product?,
+        pageBuilder: (context, state) => _buildPage(
+          ProductDetailPage(
+            productId: state.pathParameters['id'] ?? '',
+            initialProduct: state.extra as Product?,
+          ),
+          key: state.matchedLocation,
         ),
       ),
       GoRoute(
         path: AppRoutes.orders,
         name: 'orders',
-        builder: (context, state) => const OrdersPage(),
+        pageBuilder: (context, state) =>
+            _buildPage(const OrdersPage(), key: AppRoutes.orders),
       ),
       GoRoute(
         path: AppRoutes.addresses,
         name: 'addresses',
-        builder: (context, state) => const AddressesPage(),
+        pageBuilder: (context, state) =>
+            _buildPage(const AddressesPage(), key: AppRoutes.addresses),
       ),
       GoRoute(
         path: AppRoutes.paymentMethods,
         name: 'payment-methods',
-        builder: (context, state) => const PaymentMethodsPage(),
+        pageBuilder: (context, state) =>
+            _buildPage(const PaymentMethodsPage(), key: AppRoutes.paymentMethods),
       ),
       GoRoute(
         path: AppRoutes.notifications,
         name: 'notifications',
-        builder: (context, state) => const NotificationsPage(),
+        pageBuilder: (context, state) =>
+            _buildPage(const NotificationsPage(), key: AppRoutes.notifications),
       ),
       GoRoute(
         path: AppRoutes.settings,
         name: 'settings',
-        builder: (context, state) => const SettingsPage(),
+        pageBuilder: (context, state) =>
+            _buildPage(const SettingsPage(), key: AppRoutes.settings),
       ),
       GoRoute(
         path: AppRoutes.help,
         name: 'help',
-        builder: (context, state) => const HelpPage(),
+        pageBuilder: (context, state) =>
+            _buildPage(const HelpPage(), key: AppRoutes.help),
       ),
       GoRoute(
         path: AppRoutes.about,
         name: 'about',
-        builder: (context, state) => const AboutPage(),
+        pageBuilder: (context, state) =>
+            _buildPage(const AboutPage(), key: AppRoutes.about),
       ),
     ],
     errorBuilder: (context, state) => const NotFoundPage(),

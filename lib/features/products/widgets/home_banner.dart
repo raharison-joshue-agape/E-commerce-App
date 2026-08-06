@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme.dart';
-
 class HomeBanner extends StatelessWidget {
   const HomeBanner({super.key, required this.onDiscoverTap});
 
@@ -10,6 +8,7 @@ class HomeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Container(
       height: 200,
@@ -80,7 +79,7 @@ class HomeBanner extends StatelessWidget {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: AppTheme.accent,
+                    color: colors.tertiary,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: const Text(
@@ -107,8 +106,8 @@ class HomeBanner extends StatelessWidget {
                 FilledButton(
                   onPressed: onDiscoverTap,
                   style: FilledButton.styleFrom(
-                    backgroundColor: AppTheme.accent,
-                    foregroundColor: Colors.white,
+                    backgroundColor: colors.tertiary,
+                    foregroundColor: colors.onTertiary,
                     visualDensity: VisualDensity.compact,
                   ),
                   child: const Text('Découvrir'),

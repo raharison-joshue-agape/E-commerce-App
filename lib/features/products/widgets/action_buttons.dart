@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../app/theme.dart';
+import '../../../shared/services/app_snackbar_service.dart';
 import '../../cart/providers/cart_providers.dart';
 import '../../favorites/widgets/favorite_button.dart';
 import '../models/product.dart';
@@ -12,13 +12,13 @@ class ActionButtons extends ConsumerWidget {
   final Product product;
 
   void _showMessage(BuildContext context, String message) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(message)));
+    AppSnackbarService.show(context, message);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colors = Theme.of(context).colorScheme;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -43,8 +43,8 @@ class ActionButtons extends ConsumerWidget {
         FilledButton.icon(
           onPressed: () => _showMessage(context, 'Achat bientôt disponible.'),
           style: FilledButton.styleFrom(
-            backgroundColor: AppTheme.accent,
-            foregroundColor: Colors.white,
+            backgroundColor: colors.tertiary,
+            foregroundColor: colors.onTertiary,
           ),
           icon: const Icon(Icons.bolt),
           label: const Text('Acheter maintenant'),

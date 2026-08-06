@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_routes.dart';
+import '../../../shared/services/app_snackbar_service.dart';
+import '../../../shared/widgets/app_skeletons.dart';
+import '../../../shared/widgets/error_state_widget.dart';
 import '../models/user.dart';
 import '../providers/profile_providers.dart';
 import '../widgets/profile_header.dart';
@@ -15,11 +18,7 @@ class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
   void _showComingSoon(BuildContext context) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        const SnackBar(content: Text('Fonctionnalité bientôt disponible')),
-      );
+    AppSnackbarService.show(context, 'Fonctionnalité bientôt disponible');
   }
 
   @override
@@ -34,9 +33,11 @@ class ProfilePage extends ConsumerWidget {
         ),
       ),
       body: profile.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => _ProfileErrorView(
-          onRetry: () => ref.invalidate(profileProvider),
+        loading: () => const ProfileSkeleton(),
+        error: (error, stackTrace) => ErrorStateWidget(
+          title: 'Impossible de charger votre profil.',
+          message: 'Veuillez réessayer dans quelques instants.',
+          onAction: () => ref.invalidate(profileProvider),
         ),
         data: (user) => _ProfileContent(
           user: user,
@@ -137,6 +138,8 @@ class _ProfileMenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     final children = <Widget>[
       ProfileMenuTile(
         icon: Icons.receipt_long_outlined,
@@ -192,12 +195,23 @@ class _ProfileMenuCard extends StatelessWidget {
         subtitle: 'Version et informations',
         onTap: () => context.push(AppRoutes.about),
       ),
-      ProfileMenuTile(
-        icon: Icons.logout,
-        title: 'Déconnexion',
-        subtitle: 'Quitter votre compte',
-        destructive: true,
-        onTap: onLogoutPressed,
+      Padding(
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
+        child: Material(
+          color: colors.errorContainer.withValues(alpha: 0.35),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: BorderSide(color: colors.error.withValues(alpha: 0.35)),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: ProfileMenuTile(
+            icon: Icons.logout,
+            title: 'Déconnexion',
+            subtitle: 'Quitter votre compte',
+            destructive: true,
+            onTap: onLogoutPressed,
+          ),
+        ),
       ),
     ];
 
@@ -207,7 +221,7 @@ class _ProfileMenuCard extends StatelessWidget {
         children: [
           for (var i = 0; i < children.length; i++) ...[
             children[i],
-            if (i < children.length - 1)
+            if (i < children.length - 2)
               const Divider(height: 1, indent: 68, endIndent: 16),
           ],
         ],
@@ -216,60 +230,3 @@ class _ProfileMenuCard extends StatelessWidget {
   }
 }
 
-class _ProfileErrorView extends StatelessWidget {
-  const _ProfileErrorView({required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colors = theme.colorScheme;
-
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 96,
-              height: 96,
-              decoration: BoxDecoration(
-                color: colors.errorContainer,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.error_outline,
-                size: 48,
-                color: colors.onErrorContainer,
-              ),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              'Impossible de charger votre profil.',
-              style: theme.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Veuillez réessayer dans quelques instants.',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: colors.onSurfaceVariant,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-            FilledButton.icon(
-              onPressed: onRetry,
-              icon: const Icon(Icons.refresh),
-              label: const Text('Réessayer'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

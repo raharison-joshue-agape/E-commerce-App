@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../app/theme.dart';
 import '../../../core/constants/app_routes.dart';
+import '../../../shared/services/app_snackbar_service.dart';
+import '../../../shared/widgets/app_skeletons.dart';
+import '../../../shared/widgets/error_state_widget.dart';
 import '../../cart/widgets/cart_badge.dart';
 import '../providers/products_providers.dart';
 import '../widgets/category_card.dart';
@@ -16,22 +18,18 @@ class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   void _showComingSoon(BuildContext context, String feature) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text('$feature bientôt disponible.')),
-      );
+    AppSnackbarService.show(context, '$feature bientôt disponible.');
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.storefront, color: AppTheme.accent),
-            SizedBox(width: 8),
-            Text(
+            Icon(Icons.storefront, color: Theme.of(context).colorScheme.tertiary),
+            const SizedBox(width: 8),
+            const Text(
               'NovaShop',
               style: TextStyle(fontWeight: FontWeight.w800),
             ),
@@ -132,12 +130,10 @@ class _PopularProductsList extends ConsumerWidget {
 
     return popularProducts.when(
       loading: () => const _PopularProductsPlaceholder(),
-      error: (error, stackTrace) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Text(
-          'Impossible de charger les produits populaires.',
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
+      error: (error, stackTrace) => ErrorStateWidget(
+        title: 'Impossible de charger les produits populaires.',
+        message: 'Veuillez réessayer dans quelques instants.',
+        onAction: () => ref.invalidate(productsProvider),
       ),
       data: (products) => SizedBox(
         height: 280,
@@ -180,10 +176,7 @@ class _PopularProductsPlaceholder extends StatelessWidget {
         itemBuilder: (context, index) {
           return const SizedBox(
             width: 170,
-            child: Card(
-              margin: EdgeInsets.zero,
-              child: Center(child: CircularProgressIndicator()),
-            ),
+            child: ProductCardSkeleton(),
           );
         },
       ),
@@ -200,7 +193,7 @@ class _HomeFooter extends StatelessWidget {
 
     return Column(
       children: [
-        const Icon(Icons.storefront, color: AppTheme.accent, size: 28),
+        Icon(Icons.storefront, color: theme.colorScheme.tertiary, size: 28),
         const SizedBox(height: 8),
         Text(
           'Merci de visiter notre boutique.',

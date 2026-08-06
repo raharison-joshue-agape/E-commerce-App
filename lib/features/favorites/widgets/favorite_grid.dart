@@ -32,23 +32,28 @@ class FavoriteGrid extends ConsumerWidget {
             .where((product) => favorites.favoriteIds.contains(product.id))
             .toList();
 
-        return GridView.builder(
-          padding: const EdgeInsets.all(16),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            mainAxisExtent: 300,
-          ),
-          itemCount: favoriteProducts.length,
-          itemBuilder: (context, index) {
-            final product = favoriteProducts[index];
-            return FavoriteCard(
-              product: product,
-              onTap: () => context.push(
-                AppRoutes.productDetailFor(product.id),
-                extra: product,
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final columns = constraints.maxWidth >= 900 ? 3 : 2;
+            return GridView.builder(
+              padding: const EdgeInsets.all(16),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: columns,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+                mainAxisExtent: 300,
               ),
+              itemCount: favoriteProducts.length,
+              itemBuilder: (context, index) {
+                final product = favoriteProducts[index];
+                return FavoriteCard(
+                  product: product,
+                  onTap: () => context.push(
+                    AppRoutes.productDetailFor(product.id),
+                    extra: product,
+                  ),
+                );
+              },
             );
           },
         );

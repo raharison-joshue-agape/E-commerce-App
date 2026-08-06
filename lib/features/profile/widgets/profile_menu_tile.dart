@@ -42,6 +42,7 @@ class ProfileMenuTile extends StatelessWidget {
         title,
         style: theme.textTheme.bodyLarge?.copyWith(
           fontWeight: FontWeight.w600,
+          color: destructive ? colors.error : null,
         ),
       ),
       subtitle: Text(
@@ -51,8 +52,8 @@ class ProfileMenuTile extends StatelessWidget {
         ),
       ),
       trailing: Icon(
-        Icons.chevron_right,
-        color: colors.onSurfaceVariant,
+        destructive ? Icons.logout : Icons.chevron_right,
+        color: destructive ? colors.error : colors.onSurfaceVariant,
       ),
     );
   }
