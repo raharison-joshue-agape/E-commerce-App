@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../app/theme.dart';
 import '../../../core/constants/app_routes.dart';
+import '../../cart/widgets/cart_badge.dart';
 import '../providers/products_providers.dart';
 import '../widgets/category_card.dart';
 import '../widgets/home_banner.dart';
@@ -42,11 +43,7 @@ class HomePage extends ConsumerWidget {
             tooltip: 'Recherche',
             onPressed: () => _showComingSoon(context, 'La recherche'),
           ),
-          IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined),
-            tooltip: 'Panier',
-            onPressed: () => context.go(AppRoutes.cart),
-          ),
+          CartBadge(onPressed: () => context.go(AppRoutes.cart)),
           IconButton(
             icon: const Icon(Icons.person_outline),
             tooltip: 'Profil',

@@ -102,9 +102,9 @@ class _ProductDetailContent extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const SafeArea(
-        minimum: EdgeInsets.fromLTRB(16, 8, 16, 12),
-        child: ActionButtons(),
+      bottomNavigationBar: SafeArea(
+        minimum: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+        child: ActionButtons(product: product),
       ),
     );
   }

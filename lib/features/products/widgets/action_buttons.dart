@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/theme.dart';
+import '../../cart/providers/cart_providers.dart';
+import '../models/product.dart';
 
-class ActionButtons extends StatelessWidget {
-  const ActionButtons({super.key});
+class ActionButtons extends ConsumerWidget {
+  const ActionButtons({super.key, required this.product});
+
+  final Product product;
 
   void _showMessage(BuildContext context, String message) {
     ScaffoldMessenger.of(context)
@@ -12,7 +17,7 @@ class ActionButtons extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -28,10 +33,10 @@ class ActionButtons extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: FilledButton.icon(
-                onPressed: () => _showMessage(
-                  context,
-                  'Produit ajouté au panier (bientôt disponible).',
-                ),
+                onPressed: () {
+                  ref.read(cartProvider.notifier).addProduct(product);
+                  _showMessage(context, 'Produit ajouté au panier.');
+                },
                 icon: const Icon(Icons.add_shopping_cart),
                 label: const Text('Ajouter au panier'),
               ),
